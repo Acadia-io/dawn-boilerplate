@@ -145,9 +145,6 @@ slider-component {
   transform: rotate(90deg) translateX(-0.15rem) scale(1.07);
 }
 
-.slider-button:focus-visible {
-  z-index: 1;
-}
 
 .grid-grid .slider-button:disabled {
   opacity: 0;
