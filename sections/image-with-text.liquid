@@ -32,9 +32,9 @@
         {%- for block in section.blocks -%}
           {% case block.type %}
             {%- when 'heading' -%}
-              <h2 class="image-with-text__heading h1" {{ block.shopify_attributes }}>
+              <h{% if block.settings.force_h1 %}1{% else %}2{% endif %} class="image-with-text__heading h1" {{ block.shopify_attributes }}>
                 {{ block.settings.heading | escape }}
-              </h2>
+              </h{% if block.settings.force_h1 %}1{% else %}2{% endif %}>
             {%- when 'text' -%}
               <div class="image-with-text__text rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
             {%- when 'button' -%}
@@ -137,6 +137,13 @@
           "id": "heading",
           "default": "Image with text",
           "label": "t:sections.image-with-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "force_h1",
+          "label": "Make headline an H1 html tag?",
+          "default": false,
+          "info": "For SEO purposes, a single H1 is required on every page.  However, due to some page design layouts, we sometimes would like more control as to where the H1 should be located.  If this is a custom page and you removed the title header for this page's Custom Page settings, this could be your page's H1. Otherwise, do not check this box."
         }
       ]
     },
