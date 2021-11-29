@@ -1,1 +1,1 @@
-# Acadia boilerplate theme for Shopify sotres.
+# Acadia boilerplate theme for Shopify stores.
