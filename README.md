@@ -1,1 +1,1 @@
-# dawn-boilerplate
+# Acadia boilerplate theme for Shopify sotres.
