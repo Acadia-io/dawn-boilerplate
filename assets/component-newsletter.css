@@ -37,12 +37,6 @@
   .newsletter-form__message {
     justify-content: flex-start;
   }
-
-  .newsletter-form__message--success {
-    position: absolute;
-    left: 0;
-    bottom: -65%;
-  }
 }
 
 .newsletter-form__button {
