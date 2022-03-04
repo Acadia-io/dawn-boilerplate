@@ -74,6 +74,35 @@
           {%- endif -%}
         </div>
       {%- endif -%}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "url": "https://girlupcollection.com/collections/{{ collection.handle }}"
+          "numberOfItems": {{ collection.all_products_count }},
+          "name": "{{ collection.title }}",
+          "itemListElement": [
+            {%- for product in collection.products -%}
+            {
+              "@type": "ListItem",
+              "position": {{ forloop.index }},
+              "item": {
+                "@type": "Product",
+                "image": "{{ product.featured_image.url }}",
+                "url": "{{ product.url }}",
+                "name": "{{ product.title | escape }}",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "{{ product.price }}",
+                  "priceCurrency": "USD",
+                  "url": "{{ shop.domain }}/collections/{{ collection.handle }}"
+                }
+              }
+            }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        }
+      </script>
     {%- endpaginate -%}
   </div>
 </div>
@@ -87,7 +116,7 @@
       "type": "range",
       "id": "products_per_page",
       "min": 8,
-      "max": 24,
+      "max": 48,
       "step": 4,
       "default": 16,
       "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
