@@ -22,14 +22,14 @@
       >
         {%- if section.settings.image != blank -%}
           <img
-            srcset="{%- if section.settings.image.width >= 165 -%}{{ section.settings.image | img_url: '165x' }} 165w,{%- endif -%}
-              {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | img_url: '360x' }} 360w,{%- endif -%}
-              {%- if section.settings.image.width >= 535 -%}{{ section.settings.image | img_url: '535x' }} 535w,{%- endif -%}
-              {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | img_url: '750x' }} 750w,{%- endif -%}
-              {%- if section.settings.image.width >= 1070 -%}{{ section.settings.image | img_url: '1070x' }} 1070w,{%- endif -%}
-              {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | img_url: '1500x' }} 1500w,{%- endif -%}
-              {{ section.settings.image | img_url: 'master' }} {{ section.settings.image.width }}w"
-            src="{{ section.settings.image | img_url: '1500x' }}"
+            srcset="{%- if section.settings.image.width >= 165 -%}{{ section.settings.image | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if section.settings.image.width >= 535 -%}{{ section.settings.image | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if section.settings.image.width >= 1070 -%}{{ section.settings.image | image_url: width: 1070 }} 1070w,{%- endif -%}
+              {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+            src="{{ section.settings.image | image_url: width: 1500 }}"
             sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
             alt="{{ section.settings.image.alt | escape }}"
             loading="lazy"
@@ -46,7 +46,7 @@
         {%- for block in section.blocks -%}
           {% case block.type %}
             {%- when 'heading' -%}
-              <h{% if block.settings.force_h1 %}1{% else %}2{% endif %} class="image-with-text__heading h1" {{ block.shopify_attributes }}>
+              <h{% if block.settings.force_h1 %}1{% else %}2{% endif %} class="image-with-text__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
                 {{ block.settings.heading | escape }}
               </h{% if block.settings.force_h1 %}1{% else %}2{% endif %}>
             {%- when 'caption' -%}
@@ -280,6 +280,26 @@
           "label": "t:sections.image-with-text.blocks.heading.settings.heading.label"
         },
         {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h1",
+          "label": "t:sections.all.heading_size.label"
+        },
+        {
           "type": "checkbox",
           "id": "force_h1",
           "label": "Make headline an H1 html tag?",
@@ -355,7 +375,8 @@
             {
               "value": "body",
               "label": "t:sections.image-with-text.blocks.text.settings.text_style.options__1.label"
-            },            {
+            },
+            {
               "value": "subtitle",
               "label": "t:sections.image-with-text.blocks.text.settings.text_style.options__2.label"
             }
